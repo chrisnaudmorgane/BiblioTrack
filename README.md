@@ -1,2 +1,0 @@
-# BiblioTrack
-    BiblioTrack est une application web permettant aux utilisateurs de gérer une bibliothèque personnelle ou communautaire. L'application permet de suivre les livres disponibles, les emprunts, les retours, et les utilisateurs inscrits. Elle inclut également des fonctionnalités de rappel automatique pour les retours de livres.
