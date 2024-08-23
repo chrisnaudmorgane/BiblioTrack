@@ -1,7 +1,6 @@
-import { Inter } from "next/font/google";
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import back from "../../public/back.jpg";
+import Image from "next/image";
 
 export const metadata = {
   title: "Create Next App",
@@ -11,7 +10,20 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className="relative bg-cover bg-center bg-no-repeat flex justify-center items-center min-h-screen">
+        <div className="absolute inset-0">
+          <Image
+            src={back}
+            alt="Background image"
+            layout="fill"
+            objectFit="cover"
+            quality={100}
+          />
+        </div>
+        <div className="relative z-10">
+          {children}
+        </div>
+      </body>
     </html>
   );
 }
