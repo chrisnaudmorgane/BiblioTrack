@@ -1,6 +1,5 @@
 import "./globals.css";
-import back from "../../public/back.jpg";
-import Image from "next/image";
+import { AuthProvider } from "./AuthProvider";
 
 export const metadata = {
   title: "Create Next App",
@@ -10,19 +9,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="relative bg-cover bg-center bg-no-repeat flex justify-center items-center min-h-screen">
-        <div className="absolute inset-0">
-          <Image
-            src={back}
-            alt="Background image"
-            layout="fill"
-            objectFit="cover"
-            quality={100}
-          />
-        </div>
-        <div className="relative z-10">
-          {children}
-        </div>
+      <body>
+        <AuthProvider>
+          <div className="relative z-10">
+            {children}
+          </div>
+        </AuthProvider>
       </body>
     </html>
   );

@@ -1,11 +1,54 @@
+"use client";
+import { useState } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase";
+import { useRouter } from "next/navigation"
 import Link from "next/link";
+import back from "../../../../public/back.jpg";
+import Image from "next/image";
 
 export default function SignIn() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+    const router = useRouter();
+
+    const handleSignIn = async (e) => {
+        e.preventDefault();
+        setError("");
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+            router.push("/dashboard");
+        } catch (error) {
+            switch (error.code) {
+                case 'auth/invalid-email':
+                    setError("L'email est invalide.");
+                    break;
+                case 'auth/invalid-password':
+                    setError("Le mot de passe est incorrect.");
+                    break;
+                default:
+                    setError("Une erreur s'est produite lors de la connexion.");
+            }
+        }
+    };
+
     return (
-        <section>
+        <section className="relative bg-cover bg-center bg-no-repeat flex justify-center items-center min-h-screen">
+            <div className="absolute inset-0" aria-hidden="true">
+                <Image
+                    src={back}
+                    alt="Background image"
+                    fill
+                    style={{ objectFit: 'cover' }}
+                    quality={80}
+                    priority
+                />
+            </div>
             <div className="text-black w-96 p-8 rounded-lg shadow-lg max-w-md backdrop-blur-md">
                 <h2 className="text-2xl font-bold text-center mb-6">SIGN IN</h2>
-                <form>
+                {error && <p className="text-red-500 text-2xl mb-4 font-semibold">{error}</p>}
+                <form onSubmit={handleSignIn}>
                     <div className="mb-6">
                         <label htmlFor="email" className="block font-medium mb-2">
                             Email
@@ -15,6 +58,8 @@ export default function SignIn() {
                             id="email"
                             name="email"
                             required
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             placeholder="Enter your Email..."
                             autoComplete="on"
                             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -29,6 +74,8 @@ export default function SignIn() {
                             id="password"
                             name="password"
                             required
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                             placeholder="Your Password..."
                             autoComplete="off"
                             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -42,8 +89,8 @@ export default function SignIn() {
                     </button>
                     <div className="flex justify-between mt-4 text-black font-semibold">
                         <span className="text-white">Not signed up?</span>
-                        <Link href="/signUp" className="text-blue-500 hover:underline">
-                            Sign up here
+                        <Link href="/Auth/SignUp" className="text-blue-500 hover:underline">
+                            Sign Up
                         </Link>
                     </div>
                 </form>

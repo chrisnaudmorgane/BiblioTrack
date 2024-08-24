@@ -1,7 +1,5 @@
-import SignIn from "./Auth/signIn";
+import SignUp from "./Auth/SignUp/page";
 
 export default function Home() {
-  return (
-    <SignIn />
-  );
+  return <SignUp />;
 }
