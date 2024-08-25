@@ -22,6 +22,9 @@ export default function Dashboard() {
 
     useEffect(() => {
         setIsBrowser(true);
+    }, []);
+
+    useEffect(() => {
         if (user === null) {
             router.push("/Auth/SignIn");
         } else {
@@ -29,12 +32,6 @@ export default function Dashboard() {
         }
     }, [user, router]);
 
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const height = window.innerHeight;
-        }
-    }, []);
-    
     const handleLogout = async () => {
         try {
             await logout();
@@ -45,9 +42,11 @@ export default function Dashboard() {
     };
 
     if (loading) {
-        return <div className="flex justify-center items-center h-screen bg-violet-700">
-            <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-white"></div>
-        </div>;
+        return (
+            <div className="flex justify-center items-center h-screen bg-violet-700">
+                <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-white"></div>
+            </div>
+        );
     }
 
     if (!user) return null;

@@ -1,9 +1,9 @@
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
-import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { onAuthStateChanged, signInWithEmailAndPassword, signOut, User } from "firebase/auth";
 import { auth } from "./firebase";
 
-const AuthContext = createContext();
+const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
@@ -18,19 +18,48 @@ export function AuthProvider({ children }) {
         return () => unsubscribe();
     }, []);
 
-    const login = (email, password) => {
-        signInWithEmailAndPassword(auth, email, password);
+    const login = async (email, password) => {
+        setLoading(true);
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+        } catch (error) {
+            console.error("Erreur de connexion:", error.message);
+            throw error;
+        } finally {
+            setLoading(false);
+        }
     };
 
-    const logout = () => {
-        return signOut(auth);
+    const logout = async () => {
+        setLoading(true);
+        try {
+            await signOut(auth);
+        } catch (error) {
+            console.error("Erreur de déconnexion:", error.message);
+            throw error;
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const value = {
+        user,
+        loading,
+        login,
+        logout
     };
 
     return (
-        <AuthContext.Provider value={{ user, loading, login, logout }}>
-            {!loading && children}
+        <AuthContext.Provider value={value}>
+            {children}
         </AuthContext.Provider>
     );
 }
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => {
+    const context = useContext(AuthContext);
+    if (context === null) {
+        throw new Error("useAuth must be used within an AuthProvider");
+    }
+    return context;
+};
