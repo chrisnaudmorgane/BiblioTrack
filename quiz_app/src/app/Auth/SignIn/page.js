@@ -74,7 +74,7 @@ export default function SignIn() {
                     </div>
                     <div className="mb-4">
                         <label htmlFor="password" className="block font-medium mb-2">
-                            Mot de PAsse
+                            Mot de Passe
                         </label>
                         <input
                             type="password"

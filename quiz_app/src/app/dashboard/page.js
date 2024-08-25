@@ -2,26 +2,22 @@
 import { useAuth } from "../AuthProvider";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import dynamic from 'next/dynamic';
-
-const BoxIcon = dynamic(() => import('boxicons').then((mod) => mod.BoxIcon), { ssr: false });
+import "boxicons/css/boxicons.min.css";
 
 const quizList = [
-    { name: "Cryptomonnaie", icon: "bitcoin", type: "logo", color: "#F5780B" },
-    { name: "Langage C", icon: "code-alt", color: "#2B1CCF" },
-    { name: "Python", icon: "python", type: "logo", color: "#E6FE10" },
-    { name: "Developpement Web", icon: "globe", color: "#2B1CCF" },
-    { name: "Cyber Securite", icon: "shield-alt", color: "#1D0202" },
+    { name: "Cryptomonnaie", icon: "bx bxl-bitcoin", color: "#F5780B" },
+    { name: "Langage C", icon: "bx bx-code-alt", color: "#2B1CCF" },
+    { name: "Python", icon: "bx bxl-python", color: "#E6FE10" },
+    { name: "Developpement Web", icon: "bx bx-globe", color: "#2B1CCF" },
+    { name: "Cyber Securite", icon: "bx bx-shield-alt", color: "#1D0202" },
 ];
 
 export default function Dashboard() {
     const { user, logout } = useAuth();
     const router = useRouter();
     const [loading, setLoading] = useState(true);
-    const [isBrowser, setIsBrowser] = useState(false);
 
     useEffect(() => {
-        setIsBrowser(true);
         if (user === null) {
             router.push("/Auth/SignIn");
         } else {
@@ -80,7 +76,7 @@ export default function Dashboard() {
                                 >
                                     <div className="p-6 flex items-center space-x-4">
                                         <div className="flex-shrink-0">
-                                            {isBrowser && <BoxIcon name={quiz.icon} type={quiz.type} color={quiz.color} />}
+                                            <i className={`${quiz.icon} text-4xl`} style={{ color: quiz.color }}></i>
                                         </div>
                                         <div className="flex-1">
                                             <h3 className="text-xl font-medium text-white">{quiz.name}</h3>
