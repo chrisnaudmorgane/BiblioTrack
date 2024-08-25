@@ -22,9 +22,6 @@ export default function Dashboard() {
 
     useEffect(() => {
         setIsBrowser(true);
-    }, []);
-
-    useEffect(() => {
         if (user === null) {
             router.push("/Auth/SignIn");
         } else {
