@@ -62,7 +62,7 @@ export default function Dashboard() {
                     </div>
                 </div>
 
-                <div className="bg-white rounded-lg shadow-xl overflow-hidden">
+                <div className="bg-white rounded-lg shadow-xl overflow-hidden mb-8">
                     <div className="px-4 py-5 sm:p-6">
                         <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Choisissez votre Quiz</h2>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -85,6 +85,10 @@ export default function Dashboard() {
                         </div>
                     </div>
                 </div>
+
+                <footer className="bg-white rounded-lg shadow-md p-4 mt-8 text-center text-gray-900">
+                    <p className="text-sm font-semibold">Développé ❤️ par <span className="text-violet-600">AGOSSOU Chrisnaud</span></p>
+                </footer>
             </div>
         </section>
     );
