@@ -23,6 +23,7 @@ export default function Dashboard() {
         } else {
             setLoading(false);
         }
+        const heigth = window.innerHeight;
     }, [user, router]);
 
     const handleLogout = async () => {
