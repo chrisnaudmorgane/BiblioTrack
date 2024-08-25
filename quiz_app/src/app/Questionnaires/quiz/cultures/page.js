@@ -1,10 +1,10 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import crypto from '../../question_crypto/crypto';
+import cultureQuiz from '../../question_crypto/culture';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function CryptomonnaieQuiz() {
+export default function CultureQuiz() {
     const router = useRouter();
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [score, setScore] = useState(0);
@@ -26,13 +26,13 @@ export default function CryptomonnaieQuiz() {
         setSelectedAnswer(selectedOption);
         setAnswerSubmitted(true);
         
-        if (selectedOption === crypto[currentQuestion].correctAnswer) {
+        if (selectedOption === cultureQuiz[currentQuestion].correctAnswer) {
             setScore(prevScore => prevScore + 100);
         }
 
         setTimeout(() => {
             const nextQuestion = currentQuestion + 1;
-            if (nextQuestion < crypto.length) {
+            if (nextQuestion < cultureQuiz.length) {
                 setCurrentQuestion(nextQuestion);
                 setSelectedAnswer(null);
                 setAnswerSubmitted(false);
@@ -45,7 +45,7 @@ export default function CryptomonnaieQuiz() {
 
     const getButtonColor = (option) => {
         if (!answerSubmitted) return 'bg-white text-black hover:bg-gray-300';
-        if (option.charAt(0) === crypto[currentQuestion].correctAnswer) {
+        if (option.charAt(0) === cultureQuiz[currentQuestion].correctAnswer) {
             return 'bg-green-500 text-white';
         }
         if (option.charAt(0) === selectedAnswer) {
@@ -58,7 +58,7 @@ export default function CryptomonnaieQuiz() {
         router.push('/dashboard');
     };
 
-    if (!crypto || crypto.length === 0) {
+    if (!cultureQuiz || cultureQuiz.length === 0) {
         return (
             <div className="flex items-center justify-center h-screen bg-gradient-to-br from-violet-800 to-purple-600">
                 <motion.div
@@ -86,7 +86,7 @@ export default function CryptomonnaieQuiz() {
                 >
                     <h2 className="text-3xl font-bold mb-4 text-center text-violet-800">Quiz terminé!</h2>
                     <p className="text-2xl mb-2 text-center text-blue-800 font-medium">Score total : <span className="font-bold text-green-600">{score} points</span></p>
-                    <p className="text-xl text-center text-red-500 font-bold">Bonnes réponses : <span className="font-bold text-violet-600">{score / 100} sur {crypto.length}</span></p>
+                    <p className="text-xl text-center text-red-500 font-bold">Bonnes réponses : <span className="font-bold text-violet-600">{score / 100} sur {cultureQuiz.length}</span></p>
                     <div className="flex justify-between mt-6">
                         <motion.button
                             whileHover={{ scale: 1.05 }}
@@ -110,7 +110,7 @@ export default function CryptomonnaieQuiz() {
         );
     }
 
-    const currentQuestionData = crypto[currentQuestion];
+    const currentQuestionData = cultureQuiz[currentQuestion];
 
     return (
         <section className='min-h-screen bg-gradient-to-br from-violet-800 to-purple-600 py-12 px-4'>
@@ -123,7 +123,7 @@ export default function CryptomonnaieQuiz() {
                 <div className="p-6">
                     <div className="flex justify-between items-center mb-6">
                         <div className="text-2xl font-bold text-violet-800">
-                            Question {currentQuestion + 1} / {crypto.length}
+                            Question {currentQuestion + 1} / {cultureQuiz.length}
                         </div>
                         <motion.div 
                             animate={{ scale: timeLeft <= 10 ? [1, 1.1, 1] : 1 }}
