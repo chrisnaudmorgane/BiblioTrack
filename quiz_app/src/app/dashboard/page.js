@@ -5,11 +5,11 @@ import { useEffect, useState } from "react";
 import 'boxicons';
 
 const quizList = [
-    { name: "Cryptomonnaie", icon: <box-icon name="bitcoin" type="logo" color="#ff9900"></box-icon> },
-    { name: "Language C", icon: <box-icon name="code-alt" color="#00599C"></box-icon> },
-    { name: "Python", icon: <box-icon type='logo' name='python' color="#3776AB"></box-icon>},
-    { name: "Développement Web", icon: <box-icon name="globe" color="#00aaff"></box-icon> },
-    { name: "CyberSécurité", icon: <box-icon name="shield-alt" color="#ff4b4b"></box-icon> },
+    { name: "Cryptomonnaie", icon: <box-icon name="bitcoin" type="logo" color="#F5780B"></box-icon> },
+    { name: "Langage C", icon: <box-icon name="code-alt" color="#2B1CCF"></box-icon> },
+    { name: "Python", icon: <box-icon type='logo' name='python' color="#E6FE10"></box-icon>},
+    { name: "Developpement Web", icon: <box-icon name="globe" color="#2B1CCF"></box-icon> },
+    { name: "Cyber Securite", icon: <box-icon name="shield-alt" color="#1D0202"></box-icon> },
 ];
 
 export default function Dashboard() {
@@ -35,42 +35,53 @@ export default function Dashboard() {
     };
 
     if (loading) {
-        return <div>Chargement...</div>;
+        return <div className="flex justify-center items-center h-screen bg-violet-700">
+            <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-white"></div>
+        </div>;
     }
 
     if (!user) return null;
 
     return (
-        <section className="bg-violet-700">
-            <div className="container mx-auto p-4">
-                <h1 className="text-2xl font-bold mb-4">Tableau de bord</h1>
-                <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 text-black flex justify-around">
-                    <p className="mb-4 text-3xl font-semibold">Bienvenue, <span className="font-semibold text-violet-800">{user.email}</span>!</p>
-                    <button 
-                        onClick={handleLogout}
-                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                    >
-                        Se déconnecter
-                    </button>
-                </div>
-                <div className="flex justify-center items-center">
-                    <div className="border border-white rounded-lg w-96 focus:ring-violet-800 max-w-md p-4">
-                        <div>
-                            <h2 className="text-center text-3xl font-medium mb-4">Quiz</h2>
+        <section className="bg-gradient-to-br from-violet-700 to-purple-500 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto">
+                <div className="bg-white rounded-lg shadow-xl overflow-hidden mb-8">
+                    <div className="px-4 py-5 sm:p-6">
+                        <h1 className="text-3xl font-bold text-gray-900 mb-4">Tableau de bord</h1>
+                        <div className="flex flex-col sm:flex-row justify-between items-center">
+                            <p className="text-xl font-medium text-gray-700 mb-4 sm:mb-0">
+                                Bienvenue, <span className="font-semibold text-violet-800">{user.email}</span>!
+                            </p>
+                            <button 
+                                onClick={handleLogout}
+                                className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+                            >
+                                Se déconnecter
+                            </button>
                         </div>
-                        <div className="font-semibold text-2xl">
-                            <ul className="space-y-4">
-                                {quizList.map((quiz, index) => (
-                                    <li 
-                                        key={index} 
-                                        className="rounded bg-white text-black py-2 px-4 shadow-md hover:bg-[#fd1d1d] cursor-pointer flex items-center space-x-2"
-                                        onClick={() => router.push(`/quiz/${quiz.name.toLowerCase().replace(/\s+/g, '-')}`)}
-                                    >
-                                        {quiz.icon && <span className="text-xl">{quiz.icon}</span>}
-                                        <span>{quiz.name}</span>
-                                    </li>
-                                ))}
-                            </ul>
+                    </div>
+                </div>
+
+                <div className="bg-white rounded-lg shadow-xl overflow-hidden">
+                    <div className="px-4 py-5 sm:p-6">
+                        <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Choisissez votre Quiz</h2>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {quizList.map((quiz, index) => (
+                                <div 
+                                    key={index} 
+                                    className="bg-gradient-to-r from-violet-500 to-purple-600 rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105 cursor-pointer"
+                                    onClick={() => router.push(`/Questionnaires/quiz/${quiz.name.toLowerCase().replace(/\s+/g, '-')}`)}
+                                >
+                                    <div className="p-6 flex items-center space-x-4">
+                                        <div className="flex-shrink-0">
+                                            {quiz.icon}
+                                        </div>
+                                        <div className="flex-1">
+                                            <h3 className="text-xl font-medium text-white">{quiz.name}</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>

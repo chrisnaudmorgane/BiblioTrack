@@ -11,19 +11,23 @@ export default function SignUp() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [connect, setConnect] = useState("");
     const router = useRouter();
 
     const handleSignUp = async (e) => {
         e.preventDefault();
         setError("");
-
+        setConnect("");
         if (!email.includes('@') || password.length < 6) {
             setError("Email invalide ou mot de passe trop court (min 6 caractères)");
             return;
         }
         try {
             await createUserWithEmailAndPassword(auth, email, password);
-            router.push("/Auth/SignIn");
+            setConnect("Votre compte a été créé avec succès !");
+            setTimeout(() => {
+                router.push("/Auth/SignIn");
+            }, 2000);
         } catch (error) {
             switch (error.code) {
                 case 'auth/email-already-in-use':
@@ -54,7 +58,8 @@ export default function SignUp() {
                 />
             </div>
             <div className="text-black w-96 p-8 rounded-lg shadow-lg max-w-md backdrop-blur-md">
-                <h2 className="text-2xl font-bold text-center mb-6">SIGN UP</h2>
+                <h2 className="text-3xl font-bold text-center mb-6">Créer un Compte</h2>
+                {connect && <p className="text-green-500 text-xl mb-4 font-semibold">{connect}</p>}
                 {error && <p className="text-red-500 mb-4">{error}</p>}
                 <form onSubmit={handleSignUp}>
                     <div className="mb-6">
@@ -63,7 +68,7 @@ export default function SignUp() {
                             type="email"
                             id="email"
                             name="email"
-                            placeholder="Enter Your Email address"
+                            placeholder="Entrez votre addresse email"
                             autoComplete="email"
                             required
                             value={email}
@@ -72,12 +77,12 @@ export default function SignUp() {
                         />
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="password" className="block mb-2 font-medium">Password</label>
+                        <label htmlFor="password" className="block mb-2 font-medium">Mot de Passe</label>
                         <input 
                             type="password"
                             id="password"
                             name="password"
-                            placeholder="Enter Your Password"
+                            placeholder="Entrez votre mot de passe"
                             autoComplete="new-password"
                             required
                             value={password}
@@ -90,13 +95,13 @@ export default function SignUp() {
                             type="submit"
                             className="w-full bg-blue-500 text-white cursor-pointer py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200"
                         >
-                            SIGN UP
+                            S'inscrire
                         </button>
                     </div>
                     <div className="flex justify-between mt-4 text-black font-semibold">
-                        <span className="text-white">Already have an Account?</span>
+                        <span className="text-white">Déjà un compte ?</span>
                         <Link href="/Auth/SignIn" className="text-blue-500 hover:underline">
-                            Sign In
+                            Se connecter
                         </Link>
                     </div>
                 </form>
