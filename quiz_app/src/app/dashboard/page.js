@@ -2,30 +2,39 @@
 import { useAuth } from "../AuthProvider";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import 'boxicons';
+import dynamic from 'next/dynamic';
+
+const BoxIcon = dynamic(() => import('boxicons').then((mod) => mod.BoxIcon), { ssr: false });
 
 const quizList = [
-    { name: "Cryptomonnaie", icon: <box-icon name="bitcoin" type="logo" color="#F5780B"></box-icon> },
-    { name: "Langage C", icon: <box-icon name="code-alt" color="#2B1CCF"></box-icon> },
-    { name: "Python", icon: <box-icon type='logo' name='python' color="#E6FE10"></box-icon>},
-    { name: "Developpement Web", icon: <box-icon name="globe" color="#2B1CCF"></box-icon> },
-    { name: "Cyber Securite", icon: <box-icon name="shield-alt" color="#1D0202"></box-icon> },
+    { name: "Cryptomonnaie", icon: "bitcoin", type: "logo", color: "#F5780B" },
+    { name: "Langage C", icon: "code-alt", color: "#2B1CCF" },
+    { name: "Python", icon: "python", type: "logo", color: "#E6FE10" },
+    { name: "Developpement Web", icon: "globe", color: "#2B1CCF" },
+    { name: "Cyber Securite", icon: "shield-alt", color: "#1D0202" },
 ];
 
 export default function Dashboard() {
     const { user, logout } = useAuth();
     const router = useRouter();
     const [loading, setLoading] = useState(true);
+    const [isBrowser, setIsBrowser] = useState(false);
 
     useEffect(() => {
+        setIsBrowser(true);
         if (user === null) {
             router.push("/Auth/SignIn");
         } else {
             setLoading(false);
         }
-        const heigth = window.innerHeight;
     }, [user, router]);
 
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const height = window.innerHeight;
+        }
+    }, []);
+    
     const handleLogout = async () => {
         try {
             await logout();
@@ -75,7 +84,7 @@ export default function Dashboard() {
                                 >
                                     <div className="p-6 flex items-center space-x-4">
                                         <div className="flex-shrink-0">
-                                            {quiz.icon}
+                                            {isBrowser && <BoxIcon name={quiz.icon} type={quiz.type} color={quiz.color} />}
                                         </div>
                                         <div className="flex-1">
                                             <h3 className="text-xl font-medium text-white">{quiz.name}</h3>

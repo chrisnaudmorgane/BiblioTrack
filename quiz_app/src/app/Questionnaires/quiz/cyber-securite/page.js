@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import cyberSecurityQuiz from '../../question_crypto/cyber_sec';
 
