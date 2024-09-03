@@ -15,6 +15,7 @@ const quizList = [
     { name: "Cultures", icon: "bx bx-male-female", color: "#AD05C7", gradient: "from-indigo-400 to-purple-500" },
     { name: "Arts Matiaux", icon: "bx bxs-skull", color: "#B6A6B5", gradient: "from-gray-400 to-gray-600" },
     { name: "Jeux Videos", icon: "bx bxs-game", color: "#10EC29", gradient: "from-green-500 to-teal-400" },
+    { name: "Ordinateur", icon: "icon-[bx--desktop]", color: "#0943C1", gradient: "from-green-500 to-teal-400" },
 ];
 
 export default function Dashboard() {
