@@ -75,7 +75,7 @@ const commerce = [
         correctAnswer: "C",
     },
     {
-        question: "Devenons-nous livrer les produits nous mêmês ?",
+        question: "Devons-nous livrer les produits nous mêmês ?",
         options: [
             "A) Oui",
             "B) Non",
