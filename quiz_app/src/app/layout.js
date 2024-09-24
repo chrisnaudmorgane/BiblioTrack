@@ -1,4 +1,5 @@
 import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import "./globals.css";
 import { AuthProvider } from "./AuthProvider";
 
@@ -15,6 +16,7 @@ export default function RootLayout({ children }) {
           <div className="relative z-10">
             {children}
             <Analytics />
+            <SpeedInsights />
           </div>
         </AuthProvider>
       </body>
