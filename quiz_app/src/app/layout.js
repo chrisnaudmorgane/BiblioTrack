@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react"
 import "./globals.css";
 import { AuthProvider } from "./AuthProvider";
 
@@ -13,6 +14,7 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <div className="relative z-10">
             {children}
+            <Analytics />
           </div>
         </AuthProvider>
       </body>
